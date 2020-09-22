@@ -34,7 +34,7 @@ const createItem = function (itemName) {
 };
 
 const updateItem = function(id, updateData) {
-  listApiFetch(
+  return listApiFetch(
     `${baseUrl}/items/${id}`,
     {
       method: 'PATCH',
@@ -45,7 +45,7 @@ const updateItem = function(id, updateData) {
 };
 
 const deleteItem = function(id) {
-  listApiFetch(
+  return listApiFetch(
     `${baseUrl}/items/${id}`,
     {
       method: 'DELETE'
