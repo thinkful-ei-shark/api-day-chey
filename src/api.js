@@ -19,7 +19,6 @@ const listApiFetch = function(...args){
     });
 };
 
-
 const getItems = function () {
   return listApiFetch(`${baseUrl}/items`);
 };
@@ -34,9 +33,21 @@ const createItem = function (itemName) {
     });
 };
 
+const updateItem = function(id, updateData) {
+  listApiFetch(
+    `${baseUrl}/items/${id}`,
+    {
+      method: 'PATCH',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(updateData)
+    }
+  );
+};
+
 export default {
   getItems,
-  createItem
+  createItem,
+  updateItem
 };
 
 
