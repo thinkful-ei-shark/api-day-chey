@@ -1,21 +1,38 @@
 const baseUrl = 'https://thinkful-list-api.herokuapp.com/mashinke';
 
-const getItems = function() {
-  return fetch (`${baseUrl}/items`)
+const listApiFetch = function(...args){
+  let error = '';
+  return fetch(...args)
+    .then(res => {
+      if(!res.ok){
+        error = {code: res.status};
+      }
+
+      return res.json();
+    }).then(data => {
+      if (error) {
+        error.message = data.message;
+        return Promise.reject(error);
+      }
+
+      return data;
+    });
 };
 
-const createItem = function(name){
-  let newItem = JSON.stringify({name:name})
-  return fetch (`${baseUrl}/items`, {method: 'POST',
-   headers: new Headers ({'Content-Type': 'application/json'}),
-   body: newItem
-  }) 
 
+const getItems = function () {
+  return listApiFetch(`${baseUrl}/items`);
+};
 
-  
-}
-
-
+const createItem = function (itemName) {
+  return listApiFetch(
+    `${baseUrl}/items`,
+    {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({'name': itemName})
+    });
+};
 
 export default {
   getItems,
