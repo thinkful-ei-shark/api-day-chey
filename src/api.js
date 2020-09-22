@@ -44,10 +44,20 @@ const updateItem = function(id, updateData) {
   );
 };
 
+const deleteItem = function(id) {
+  listApiFetch(
+    `${baseUrl}/items/${id}`,
+    {
+      method: 'DELETE'
+    }
+  );
+};
+
 export default {
   getItems,
   createItem,
-  updateItem
+  updateItem,
+  deleteItem
 };
 
 
